@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anzug Größen Rechner</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+</head>
+<body>
+  <div class="swiper-container">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide">Hemden</div>
+    <div class="swiper-slide">Anzüge</div>
+    <div class="swiper-slide">Jacken</div>
+    <div class="swiper-slide">Hosen</div>
+    <div class="swiper-slide">Pullover</div>
+    <div class="swiper-slide">Gürtel</div>
+  </div>
+</div>
+
+  <div class="container">
+    <h3>Hier finden Sie Ihre perfekte Anzug-Größe</h3>
+    <!-- Resulting Suit Size Card -->
+    <div class="card">
+      <div class="card-body">
+        <center>Ihre Anzugsgröße ist:</center><br>
+        <h5 class="card-title" id="suit-size">48</h5>
+      </div>
+    </div>
+
+    <!-- Sliders Cards -->
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Wählen Sie Ihre Maße</h5>
+        <div class="slider-container">
+          <label for="body-height">Körpergröße (cm): <span id="body-height-value">174</span></label>
+          <input type="range" id="body-height" min="160" max="200" step="1" value="174">
+          <!-- Repeat for other sliders -->
+        </div>
+        <div class="slider-container">
+          <label for="chest-circumference">Brustumfang (cm): <span id="chest-circumference-value">96</span></label>
+          <input type="range" id="chest-circumference" min="90" max="130" step="1" value="96">
+        </div>
+        <div class="slider-container">
+          <label for="hip-width">Gesässweite (cm): <span id="hip-width-value">100</span></label>
+          <input type="range" id="hip-width" min="90" max="140" step="1" value="100">
+        </div>
+        <div class="slider-container">
+          <label for="waist-width">Bundweite (cm): <span id="waist-width-value">84</span></label>
+          <input type="range" id="waist-width" min="80" max="120" step="1" value="84">
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="js/data.js" type="module"></script>
+  <script src="js/script.js" type="module"></script>
+</body>
+</html>
