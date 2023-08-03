@@ -30,7 +30,7 @@ h1 {
 }
 
 .card-title {
-  font-size: 24px;
+  font-size: 22px;
   text-align: center;
 }
 
@@ -59,3 +59,51 @@ input[type="range"] {
   line-height: 50px;
   border-bottom: 2px solid #ddd;
 }
+
+/* Custom Slider Styles */
+.slider-container {
+  margin-bottom: 20px;
+}
+.slider-container label {
+  margin-bottom: 10px;
+  display: block;
+}
+.slider-container input[type="range"] {
+  width: 100%;
+  height: 8px;
+  background: #f0f0f0;
+  border-radius: 5px;
+  outline: none;
+  -webkit-appearance: none;
+}
+.slider-container input[type="range"]::-webkit-slider-thumb {
+  width: 20px;
+  height: 20px;
+  background: #007bff; /* Bootstrap primary color */
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+.slider-container input[type="range"]::-moz-range-thumb {
+  /* Same styles as above for Firefox */
+  width: 20px;
+  height: 20px;
+  background: #007bff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.size-card {
+  max-width: 300px; /* You can adjust this value as needed */
+  margin: 20px auto;
+}
+.size-card .card-body {
+  padding: 10px; /* Adjust padding to reduce height */
+}
+.size-card .card-title {
+  font-size: 24px; /* Adjust font size as needed */
+  margin: 0;
+}
+

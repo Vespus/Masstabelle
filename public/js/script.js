@@ -1,11 +1,14 @@
 import measurementData from './data.js';
 
 function updateSliderValues() {
-  console.log("Updating slider values..."); // Debugging output
-  document.getElementById('body-height-value').textContent = document.getElementById('body-height').value;
-  document.getElementById('chest-circumference-value').textContent = document.getElementById('chest-circumference').value;
-  document.getElementById('hip-width-value').textContent = document.getElementById('hip-width').value;
-  document.getElementById('waist-width-value').textContent = document.getElementById('waist-width').value;
+  const selectedCategory = document.getElementById('selected-category').textContent;
+  const categoryData = measurementData[selectedCategory];
+  
+  for (const key of Object.keys(categoryData)) {
+    if (key !== "Sizes") { // Exclude the "Sizes" key
+      document.getElementById(`${key}-value`).textContent = document.getElementById(key).value;
+    }
+  }
 }
 
 function interpolate(value, values, sizes) {
@@ -16,42 +19,80 @@ function interpolate(value, values, sizes) {
   return sizes[closestIndex] * (1 - weight) + sizes[closestIndex + 1] * weight;
 }
 
-function calculateSuitSize() {
-  const bodyHeight = parseInt(document.getElementById('body-height').value);
-  const chestCircumference = parseInt(document.getElementById('chest-circumference').value);
-  const hipWidth = parseInt(document.getElementById('hip-width').value);
-  const waistWidth = parseInt(document.getElementById('waist-width').value);
+function calculateSize() {
+  const selectedCategory = document.getElementById('selected-category').textContent;
+  const categoryData = measurementData[selectedCategory];
 
-  const bodyHeights = measurementData["Anzüge"]["Körpergröße"]["values"];
-  const chestCircumferences = measurementData["Anzüge"]["Brustumfang"]["values"];
-  const hipWidths = measurementData["Anzüge"]["Gesässweite"]["values"];
-  const waistWidths = measurementData["Anzüge"]["Bundweite"]["values"];
-  const suitSizes = measurementData["Anzüge"]["Sizes"]["values"];
+  const sizes = categoryData["Sizes"]["values"];
+  const interpolatedSizes = [];
+  for (const [key, value] of Object.entries(categoryData)) {
+    if (key !== "Sizes") { // Exclude the "Sizes" key
+      const inputValue = parseInt(document.getElementById(key).value);
+      interpolatedSizes.push(interpolate(inputValue, value.values, sizes));
+    }
+  }
 
-  const interpolatedHeightSize = interpolate(bodyHeight, bodyHeights, suitSizes);
-  const interpolatedChestSize = interpolate(chestCircumference, chestCircumferences, suitSizes);
-  const interpolatedHipSize = interpolate(hipWidth, hipWidths, suitSizes);
-  const interpolatedWaistSize = interpolate(waistWidth, waistWidths, suitSizes);
+  const averageSize = interpolatedSizes.reduce((sum, size) => sum + size, 0) / interpolatedSizes.length;
 
-  const averageSuitSize = (interpolatedHeightSize + interpolatedChestSize + interpolatedHipSize + interpolatedWaistSize) / 4;
-
-  // Find the nearest existing suit size
-  const nearestSuitSize = suitSizes.reduce((prev, curr) =>
-    Math.abs(curr - averageSuitSize) < Math.abs(prev - averageSuitSize) ? curr : prev
+  // Find the nearest existing size
+  const nearestSize = sizes.reduce((prev, curr) =>
+    Math.abs(curr - averageSize) < Math.abs(prev - averageSize) ? curr : prev
   );
 
-  document.getElementById('suit-size').textContent = nearestSuitSize || "Keine Anzuggröße";
+  document.getElementById('size').textContent = nearestSize || "Keine Größe";
 }
 
+function selectCategory(category) {
+  const categoryData = measurementData[category];
+  if (!categoryData) return;
 
+  // Update the selected category and headline
+  document.getElementById('selected-category').textContent = category;
+  document.getElementById('category-headline').textContent = `Finden Sie Ihre perfekte ${category}-Größe:`;
 
-document.getElementById('body-height').addEventListener('input', () => { updateSliderValues(); calculateSuitSize(); });
-document.getElementById('chest-circumference').addEventListener('input', () => { updateSliderValues(); calculateSuitSize(); });
-document.getElementById('hip-width').addEventListener('input', () => { updateSliderValues(); calculateSuitSize(); });
-document.getElementById('waist-width').addEventListener('input', () => { updateSliderValues(); calculateSuitSize(); });
+  // Get the container for the sliders
+  const slidersContainer = document.getElementById('sliders-container');
+  slidersContainer.innerHTML = ''; // Clear existing sliders
 
-updateSliderValues();
-calculateSuitSize();
+  // Iterate through the category data and create sliders
+  for (const [key, value] of Object.entries(categoryData)) {
+    if (key !== "Sizes") { // Exclude the "Sizes" key
+      const sliderDiv = document.createElement('div');
+      sliderDiv.className = 'slider-container form-group'; // Added form-group class
+
+      const label = document.createElement('label');
+      label.htmlFor = key;
+      label.id = `${key}-label`;
+      label.innerHTML = `${key} (${value.unit}): <span id="${key}-value">${value.values[0]}</span>`;
+      sliderDiv.appendChild(label);
+
+      const input = document.createElement('input');
+      input.type = 'range';
+      input.id = key;
+      input.className = 'custom-range'; // Added custom-range class
+      input.min = Math.min(...value.values);
+      input.max = Math.max(...value.values);
+      input.step = '1';
+      input.value = value.values[0];
+      input.addEventListener('input', () => { updateSliderValues(); calculateSize(); });
+      sliderDiv.appendChild(input);
+
+      slidersContainer.appendChild(sliderDiv);
+    }
+  }
+
+  updateSliderValues();
+  calculateSize();
+}
+
+// Event listeners for sliders are now added dynamically
+document.getElementById('anzuege-slide').addEventListener('click', () => selectCategory('Anzüge'));
+document.getElementById('jacken-slide').addEventListener('click', () => selectCategory('Jacken'));
+
+// Add more event listeners for other categories
+
+// Set default category
+selectCategory('Anzüge');
 
 const swiper = new Swiper('.swiper-container', {
   slidesPerView: 3,
