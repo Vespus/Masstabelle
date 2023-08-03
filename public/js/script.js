@@ -3,9 +3,9 @@ import measurementData from './data.js';
 function updateSliderValues() {
   const selectedCategory = document.getElementById('selected-category').textContent;
   const categoryData = measurementData[selectedCategory];
-  
+
   for (const key of Object.keys(categoryData)) {
-    if (key !== "Sizes") { // Exclude the "Sizes" key
+    if (key !== "Sizes") {
       document.getElementById(`${key}-value`).textContent = document.getElementById(key).value;
     }
   }
@@ -26,7 +26,7 @@ function calculateSize() {
   const sizes = categoryData["Sizes"]["values"];
   const interpolatedSizes = [];
   for (const [key, value] of Object.entries(categoryData)) {
-    if (key !== "Sizes") { // Exclude the "Sizes" key
+    if (key !== "Sizes") {
       const inputValue = parseInt(document.getElementById(key).value);
       interpolatedSizes.push(interpolate(inputValue, value.values, sizes));
     }
@@ -34,7 +34,6 @@ function calculateSize() {
 
   const averageSize = interpolatedSizes.reduce((sum, size) => sum + size, 0) / interpolatedSizes.length;
 
-  // Find the nearest existing size
   const nearestSize = sizes.reduce((prev, curr) =>
     Math.abs(curr - averageSize) < Math.abs(prev - averageSize) ? curr : prev
   );
@@ -43,6 +42,10 @@ function calculateSize() {
 }
 
 function selectCategory(category) {
+  // Clear previous selection
+  const allSlides = document.querySelectorAll('.swiper-slide');
+  allSlides.forEach(slide => slide.classList.remove('swiper-slide-selected'));
+
   const categoryData = measurementData[category];
   if (!categoryData) return;
 
@@ -83,23 +86,24 @@ function selectCategory(category) {
 
   updateSliderValues();
   calculateSize();
+
+  // Mark the selected category
+  document.getElementById(`${category.toLowerCase().replace('ü', 'ue')}-slide`).classList.add('swiper-slide-selected');
 }
 
-// Event listeners for sliders are now added dynamically
 document.getElementById('anzuege-slide').addEventListener('click', () => selectCategory('Anzüge'));
 document.getElementById('jacken-slide').addEventListener('click', () => selectCategory('Jacken'));
 
-// Add more event listeners for other categories
-
-// Set default category
 selectCategory('Anzüge');
 
 const swiper = new Swiper('.swiper-container', {
-  slidesPerView: 3,
-  spaceBetween: 30,
+  slidesPerView: 2.5, // Adjust to show 2.5 slides at a time
+  spaceBetween: 10,
   freeMode: true,
   pagination: {
     el: '.swiper-pagination',
     clickable: true,
   },
 });
+
+
