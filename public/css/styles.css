@@ -4,22 +4,22 @@ body {
   color: #333;
   max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 10px;
 }
 
-h1 {
+h1, .card-title {
   text-align: center;
   color: #555;
-  margin-bottom: 20px;
 }
 
 .container {
   max-width: 800px;
-  margin: 20px auto;
+  margin: 10px auto;
+  padding-bottom: 60px; /* Add padding to prevent overlap with the swipe menu */
 }
 
 .card {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   border: none;
   background-color: #f8f9fa;
 }
@@ -29,88 +29,81 @@ h1 {
   background-color: #e9ecef;
 }
 
-.card-title {
-  font-size: 22px;
-  text-align: center;
-}
-
 .slider-container {
-  margin: 15px 0;
+  margin: 10px 0;
 }
 
 label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 3px;
 }
 
-input[type="range"] {
-  width: 100%;
-}
-
-.swiper-container {
-  width: 100%;
-  height: 50px;
-}
-
-/* Custom Slider Styles */
-.slider-container {
-  margin-bottom: 20px;
-}
-.slider-container label {
-  margin-bottom: 10px;
-  display: block;
-}
 .slider-container input[type="range"] {
+  -webkit-appearance: none;
   width: 100%;
-  height: 8px;
-  background: #f0f0f0;
+  height: 6px; /* Track height */
   border-radius: 5px;
+  background: #ccc;
   outline: none;
-  -webkit-appearance: none;
-}
-.slider-container input[type="range"]::-webkit-slider-thumb {
-  width: 20px;
-  height: 20px;
-  background: #0032D2; /* Navy blue */
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  -webkit-appearance: none;
-}
-.slider-container input[type="range"]::-moz-range-thumb {
-  /* Same styles as above for Firefox */
-  width: 20px;
-  height: 20px;
-  background: #0032D2; /* Navy blue */
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
 }
 
-/* Adjustments for the size card */
-.card-body {
-  padding: 15px;
+.slider-container input[type="range"]::-webkit-slider-thumb {
+  box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.5), 1px 1px 1px rgba(255, 255, 255, 0.2);
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background: #0032D2;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -10px;
+}
+
+.slider-container input[type="range"]::-moz-range-thumb {
+  box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.5), 1px 1px 1px rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  background: #0032D2;
+  cursor: pointer;
 }
 
 .swiper-container {
   width: 100%;
+  height: 50px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 }
 
-/* Swipe style for non-selected entries */
 .swiper-slide {
-  height: 50px;
-  line-height: 50px;
+  height: 40px;
+  line-height: 40px;
   text-align: center;
-  font-size: 14px; /* Reduce the font size */
+  font-size: 17px;
   background: #808080;
   color: white;
-  flex-wrap: nowrap; /* Prevent wrapping */
-  white-space: nowrap; /* Prevent text wrapping */
-  width: 120px; /* Specific width for each slide */
+  white-space: nowrap;
+  width: 120px;
+  padding-top: 4px;
 }
 
-/* Swipe style for selected entries */
 .swiper-slide-selected {
   background-color: #0032D2;
 }
 
+.card-body {
+  padding: 10px;
+  font-size: 18px;
+}
+
+.headline-container {
+  display: flex;
+  align-items: center;
+}
+
+#category-image {
+  width: 56px; /* Match the image's original width */
+  height: 68px; /* Match the image's original height */
+  margin-right: 10px; /* Add some space between the image and the text */
+  vertical-align: middle; /* Align the image with the middle of the text */
+}

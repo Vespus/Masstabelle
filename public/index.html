@@ -10,32 +10,25 @@
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 </head>
 <body>
-  <div class="swiper-container">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide" id="hemden-slide">Hemden</div>
-      <div class="swiper-slide swiper-slide-selected" id="anzuege-slide">Anzüge</div>
-      <div class="swiper-slide" id="jacken-slide">Jacken</div>
-      <div class="swiper-slide" id="hosen-slide">Hosen</div>
-      <div class="swiper-slide" id="pullover-slide">Pullover</div>
-      <div class="swiper-slide" id="guertel-slide">Gürtel</div>
-      <div class="swiper-slide" id="waesche-slide">Wäsche</div>
-      <!-- Rest of the slides -->
-    </div>
-  </div>
-
-  <div class="container">
-    <h4 id="category-headline">Finden Sie Ihre perfekte Anzug-Größe</h4>
-    <!-- Hidden div to store selected category -->
-    <div id="selected-category" style="display: none;">Anzüge</div>
-    <!-- Resulting Size Card -->
-    <div class="card size-card">
-      <div class="card-body">
-        <center>Ihre Größe ist:</center><br>
-        <h5 class="card-title" id="size">48</h5>
+      <div class="container">
+        <div class="headline-container">
+          <img src="images/h_positiv.jpg" alt="Logo" id="category-image">
+          <h4 id="category-headline">Finden Sie Ihre perfekte Anzug-Größe</h4>
+        </div>
+        <!-- Rest of the code -->
+      </div>
+      
+      <!-- Hidden div to store selected category -->
+      <div id="selected-category" style="display: none;">Anzüge</div>
+      <!-- Resulting Size Card -->
+      <div class="card size-card">
+        <div class="card-body">
+          <center>Ihre Größe ist:</center><br>
+          <h5 class="card-title" id="size">48</h5>
+        </div>
       </div>
     </div>
-    
-
+        
     <!-- Sliders Cards -->
     <div class="card">
       <div class="card-body">
@@ -45,6 +38,23 @@
       </div>
     </div>
   </div>
+
+  <!-- Swiper container moved to the bottom -->
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" id="jeans-slide">Jeans</div>
+      <div class="swiper-slide swiper-slide-selected" id="anzuege-slide">Anzüge</div>
+      <div class="swiper-slide" id="jacken-slide">Jacken</div>
+      <div class="swiper-slide" id="schuhe-slide">Schuhe</div>
+      <div class="swiper-slide" id="hemden-slide">Hemden</div>
+      <div class="swiper-slide" id="hosen-slide">Hosen</div>
+      <div class="swiper-slide" id="pullover-slide">Pullover</div>
+      <div class="swiper-slide" id="guertel-slide">Gürtel</div>
+      <div class="swiper-slide" id="waesche-slide">Wäsche</div>
+      <!-- Rest of the slides -->
+    </div>
+  </div>
+  
   <script src="js/data.js" type="module"></script>
   <script src="js/script.js" type="module"></script>
 </body>
