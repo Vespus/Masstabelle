@@ -119,10 +119,9 @@ function selectCategory(category) {
         slidersContainer.appendChild(sliderDiv);
       }
     }
-console.log("Updating slider values for Schuhe...");
-updateSliderValues();
-console.log("Calculating size for Schuhe...");
-calculateSize();
+    // Initialize sliders with default values
+    updateSliderValues();
+    calculateSize();
 
   }
 
@@ -134,11 +133,15 @@ calculateSize();
 }
 
 function interpolate(value, values, sizes) {
-  const closestIndex = values.findIndex(v => v >= value);
-  const closestValue = values[closestIndex];
-  const nextClosestValue = values[closestIndex + 1] || closestValue;
-  const weight = (value - closestValue) / (nextClosestValue - closestValue);
-  return sizes[closestIndex] * (1 - weight) + sizes[closestIndex + 1] * weight;
+  if (value <= values[0]) return sizes[0];
+  if (value >= values[values.length - 1]) return sizes[sizes.length - 1];
+
+  const upperIndex = values.findIndex(v => v >= value);
+  const lowerIndex = upperIndex - 1;
+  const lowerValue = values[lowerIndex];
+  const upperValue = values[upperIndex];
+  const weight = (value - lowerValue) / (upperValue - lowerValue);
+  return sizes[lowerIndex] * (1 - weight) + sizes[upperIndex] * weight;
 }
 
 document.getElementById('jeans-slide').addEventListener('click', () => selectCategory('Jeans'));
